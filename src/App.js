@@ -1,24 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
+import Nav from'./component/Navbar';
+import Filter from './component/Filter';
+import Tour from './component/Tour';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Nav/>
+      <div className="container">
+          <div className="row body-section pt-5">
+             <div className="col-4">
+                <Filter />
+            </div>
+            <div className="col-8">
+            <h2>Results</h2>
+                <Tour />
+            </div> 
+          </div>    
+      </div>
     </div>
   );
 }
