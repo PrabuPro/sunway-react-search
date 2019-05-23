@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React from 'react';
 import './Navbar.css';
 import logo from '../assets/image/logo_main.jpg';
 
@@ -9,7 +9,7 @@ const nav = () =>{
             <div className="row row-bar">
                 <div className="container">
                     <nav className="navbar navbar-expand-lg navbar-light justify-content-between">
-                <a className="navbar-brand" href="#"><img src={logo} class="img-fluid logo" alt="" /></a>
+                <a className="navbar-brand" href="#"><img src={logo} className="img-fluid logo" alt="" /></a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>

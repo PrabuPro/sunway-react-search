@@ -31,6 +31,10 @@
     margin: 10px 0; 
 }
 
+.tour-image{
+    object-fit: cover;
+}
+
 @media (max-width: 575.98px) {
     .card-body {
         font-size: .85rem;
