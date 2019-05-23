@@ -12,19 +12,22 @@ class App extends Component {
     tours: []
   }
 
-  componentDidMount(){
-    console.log('componentDidMount')
+  componentWillMount(){
+    console.log('componentWillMount')
     axios.get('http://localhost/sunwayholidays/test')
         .then(res => {
             this.setState({
               tours: res.data
             }) 
-            
         });
   };
 
+  componentDidMount(){
+    console.log('componentDidMount');
+  }
 
-  updateTours = () =>{
+
+  updateTours = () => {
     console.log('this');
   }
 

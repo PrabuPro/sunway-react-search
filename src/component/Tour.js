@@ -3,7 +3,6 @@ import './Tour.css';
 
 const Tour = (props) =>{
     if(props.tours.length === 0){
-        console.log(props.tours.length);
         return null;
     } else {
 
@@ -12,7 +11,6 @@ const Tour = (props) =>{
             const description = props.tours[key].description;
             const duration = props.tours[key].duration;
             const image = props.tours[key].image;
-            console.log(title);
             return(
                 <div key={key} className="card tour-card mt-4">
                     <div className="card-body d-flex">
@@ -32,10 +30,9 @@ const Tour = (props) =>{
         }
 
         const tourItems = Object.keys(props.tours);
-        console.log(tourItems);
         return(
             <div>
-                { tourItems.map(renderTours)}
+                {tourItems.map(renderTours).splice(0,8)}
             </div>
         );
     }
