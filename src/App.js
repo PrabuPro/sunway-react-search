@@ -9,7 +9,8 @@ class App extends Component {
 
   state = {
     isLoading: false,
-    tours: []
+    tours: [],
+    isRomanticHoliday: true
   }
 
   componentWillMount(){
@@ -20,16 +21,32 @@ class App extends Component {
               tours: res.data
             }) 
         });
-  };
+  }
 
-  componentDidMount(){
-    console.log('componentDidMount');
+  componentDidUpdate(){
+    console.log(this.state.isRomanticHoliday);
+    axios.get('http://localhost/sunwayholidays/test/',null,{params:{
+      isRomanticHoliday
+    }})
+        .then(res => {
+            this.setState({
+              tours: res.data
+            }) 
+        });
   }
 
 
-  updateTours = () => {
-    console.log('this');
+  handleInputChange = (event) => {
+    const value = event.target.checked === true ? event.target.value : '' ;
+    const name = event.target.name;
+
+    this.setState({
+      [name]: value
+    });
+   
   }
+
+
 
   render(){
     return (
@@ -38,7 +55,9 @@ class App extends Component {
         <div className="container">
             <div className="row body-section pt-5">
                 <div className="col-4">
-                  <Filter updateTours={this.updateTours}/>
+                  <Filter 
+                      isRomanticHoliday={this.isRomanticHoliday}
+                      handleInputChange={this.handleInputChange}/>
               </div>
               <div className="col-8">
               <h2>Results</h2>
