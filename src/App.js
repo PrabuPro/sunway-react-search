@@ -15,6 +15,7 @@ class App extends Component {
 
   componentWillMount(){
     console.log('componentWillMount')
+
     axios.get('http://localhost/sunwayholidays/test')
         .then(res => {
             this.setState({
@@ -23,16 +24,8 @@ class App extends Component {
         });
   }
 
-  componentDidUpdate(){
-    console.log(this.state.isRomanticHoliday);
-    axios.get('http://localhost/sunwayholidays/test/',null,{params:{
-      isRomanticHoliday
-    }})
-        .then(res => {
-            this.setState({
-              tours: res.data
-            }) 
-        });
+  componentDidUpdate(prevProps, prevState){
+    
   }
 
 
@@ -42,8 +35,25 @@ class App extends Component {
 
     this.setState({
       [name]: value
+    }, () => {
+      if (!this.state.isRomanticHoliday) {
+        axios.get('http://localhost/sunwayholidays/test')
+          .then(res => {
+            this.setState({
+              tours: res.data
+            })
+          });
+      } else {
+        axios.get('http://localhost/sunwayholidays/test/eco')
+          .then(res => {
+            //  const tours = [...this.state.tours];
+            //  tours = res.data;
+            this.setState({
+              tours: res.data
+            });
+          });
+      }
     });
-   
   }
 
 
