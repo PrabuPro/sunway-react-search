@@ -4,11 +4,12 @@ import Filter from './component/Filter';
 import Tour from './component/Tour';
 import axios from 'axios';
 import './App.css';
+import loading from './assets/image/search.gif';
 
 class App extends Component {
 
   state = {
-    isLoading: false,
+    isLoading: true,
     tours: [],
     romanticHoliday: '',
     couplesFriends: ''
@@ -20,7 +21,8 @@ class App extends Component {
     axios.get('http://localhost/sunwayholidays/test')
         .then(res => {
             this.setState({
-              tours: res.data
+              tours: res.data,
+              isLoading:false
             }) 
         });
   }
@@ -34,13 +36,15 @@ class App extends Component {
     const name = event.target.name;
 
     this.setState({
+      isLoading: true,
       [name]: value
     }, () => {
       if (!this.state.romanticHoliday && !this.state.couplesFriends) {
         axios.get('http://localhost/sunwayholidays/test')
           .then(res => {
             this.setState({
-              tours: res.data
+              tours: res.data,
+              isLoading:false
             })
           });
       } else {
@@ -55,7 +59,8 @@ class App extends Component {
              }
           }).then(res => {
             this.setState({
-              tours: res.data
+              tours: res.data,
+              isLoading: false
             });
           }).catch(error => console.log(error));
             
@@ -63,6 +68,8 @@ class App extends Component {
       }
     });
   }
+
+ 
 
   render(){
     return (
@@ -78,7 +85,13 @@ class App extends Component {
               </div>
               <div className="col-8">
               <h2>Results</h2>
-                  <Tour tours={this.state.tours}/>
+              
+              { this.state.isLoading ? 
+                <div className="loading">
+                  <img src={loading} className="loading-img" alt=""/>
+                  <h3>Searching Your Tours...</h3>
+                </div> : <Tour tours={this.state.tours}/>}
+                  
               </div> 
             </div>    
         </div>
