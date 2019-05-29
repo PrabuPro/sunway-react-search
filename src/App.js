@@ -10,7 +10,8 @@ class App extends Component {
   state = {
     isLoading: false,
     tours: [],
-    isRomanticHoliday: true
+    romanticHoliday: '',
+    couplesFriends: ''
   }
 
   componentWillMount(){
@@ -28,7 +29,6 @@ class App extends Component {
     
   }
 
-
   handleInputChange = (event) => {
     const value = event.target.checked === true ? event.target.value : '' ;
     const name = event.target.name;
@@ -36,7 +36,7 @@ class App extends Component {
     this.setState({
       [name]: value
     }, () => {
-      if (!this.state.isRomanticHoliday) {
+      if (!this.state.romanticHoliday && !this.state.couplesFriends) {
         axios.get('http://localhost/sunwayholidays/test')
           .then(res => {
             this.setState({
@@ -44,19 +44,25 @@ class App extends Component {
             })
           });
       } else {
-        axios.get('http://localhost/sunwayholidays/test/eco')
-          .then(res => {
-            //  const tours = [...this.state.tours];
-            //  tours = res.data;
+        // console.log(value);
+        axios.post( 'http://localhost/sunwayholidays/testPost', 
+          {
+            romanticHoliday: this.state.romanticHoliday,
+            couplesFriends: this.state.couplesFriends
+          },{
+             headers: {
+               'Content-Type': 'application/x-www-form-urlencoded'
+             }
+          }).then(res => {
             this.setState({
               tours: res.data
             });
-          });
+          }).catch(error => console.log(error));
+            
+          
       }
     });
   }
-
-
 
   render(){
     return (
@@ -66,7 +72,8 @@ class App extends Component {
             <div className="row body-section pt-5">
                 <div className="col-4">
                   <Filter 
-                      isRomanticHoliday={this.isRomanticHoliday}
+                      romanticHoliday={this.state.romanticHoliday}
+                      couplesFriends={this.state.couplesFriends}
                       handleInputChange={this.handleInputChange}/>
               </div>
               <div className="col-8">

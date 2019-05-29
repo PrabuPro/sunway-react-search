@@ -29,10 +29,10 @@ const Tour = (props) =>{
 
         }
 
-        const tourItems = Object.keys(props.tours);
+        const tourItems = Object.keys(props.tours); 
         return(
             <div>
-                {tourItems.map(renderTours).splice(0,8)}
+                {tourItems.map(renderTours)}
             </div>
         );
     }
