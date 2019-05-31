@@ -1,9 +1,12 @@
 import React from 'react';
+import {CSSTransition} from 'react-transition-group';
 import './Tour.css';
 
 const Tour = (props) =>{
     if(props.tours.length === 0){
-        return null;
+        return (
+            <h1>No Tours Found</h1>
+        );
     } else {
 
         const renderTours = key => {
@@ -26,13 +29,22 @@ const Tour = (props) =>{
                     </div>
                 </div>
             );
+        }
 
+        const noRecord = () =>{
+            return(
+               <div>
+                   <h2>No Matching Tours :( </h2>
+               </div> 
+            );
         }
 
         const tourItems = Object.keys(props.tours); 
         return(
             <div>
-                {tourItems.map(renderTours)}
+                {
+                    props.noRecords ? noRecord() : tourItems.map(renderTours) 
+                }
             </div>
         );
     }

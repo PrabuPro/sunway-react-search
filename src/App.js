@@ -10,6 +10,7 @@ class App extends Component {
 
   state = {
     isLoading: true,
+    noRecords: false,
     tours: [],
     romanticHoliday: '',
     couplesFriends: '',
@@ -57,7 +58,8 @@ class App extends Component {
           .then(res => {
             this.setState({
               tours: res.data,
-              isLoading:false
+              isLoading:false,
+              noRecords:false
             })
           });
       } else {
@@ -92,11 +94,18 @@ class App extends Component {
                'Content-Type': 'application/x-www-form-urlencoded'
              }
           }).then(res => {
-            // console.log(res);
+            if (res.data.status == "NO_RECORDS"){
+              this.setState({
+                noRecords: true,
+                isLoading: false,
+              });
+            }else{
             this.setState({
               tours: res.data,
-              isLoading: false
-            });
+              isLoading: false,
+              noRecords: false,
+            });  
+            }
           }).catch(error => console.log(error));
       }
     });
@@ -120,7 +129,7 @@ class App extends Component {
                 <div className="loading">
                   <img src={loading} className="loading-img" alt=""/>
                   <h3>Searching Your Tours...</h3>
-                </div> : <Tour tours={this.state.tours}/>}
+                </div> : <Tour tours={this.state.tours} noRecords={this.state.noRecords}/>}
               </div> 
             </div>    
         </div>
