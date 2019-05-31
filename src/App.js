@@ -26,7 +26,23 @@ class App extends Component {
     teaTrails: '',
     relaxingBeachTime: '',
     colomboCity: '',
-    ecoLovers:''
+    ecoLovers:'',
+    localExperience:'',
+    meetLocals:'',
+    northernPeninsular: '',
+    notthEasternCoast: '',
+    westernCoast: '',
+    southWesternCoast: '',
+    southernCoast: '',
+    easternCoast: '',
+    softAdventure: '',
+    activeHoliday: '',
+    relaxingHoliday: '',
+    leisureDayInBetween: '',
+    midlyActiveHoliday: '',
+    seeAsMuchAsPossible: '',
+    relaxingBeachTime: ''
+
   }
 
   componentWillMount(){
@@ -53,7 +69,7 @@ class App extends Component {
       isLoading: true,
       [name]: value
     }, () => {
-      if (!this.state.romanticHoliday && !this.state.couplesFriends && !this.state.travellingSolo && !this.state.familiesTeenages && !this.state.familiesKids && !this.state.seniors && !this.state.culture && !this.state.unescoHeritage && !this.state.interactWithAnimals && !this.state.natureAndLandscapes && !this.state.teaTrails && !this.state.relaxingBeachTime && !this.state.colomboCity && !this.state.ecoLovers) {
+      if (!this.state.romanticHoliday && !this.state.couplesFriends && !this.state.travellingSolo && !this.state.familiesTeenages && !this.state.familiesKids && !this.state.seniors && !this.state.culture && !this.state.unescoHeritage && !this.state.interactWithAnimals && !this.state.wildlifeWatching && !this.state.natureAndLandscapes && !this.state.teaTrails && !this.state.relaxingBeachTime && !this.state.colomboCity && !this.state.ecoLovers && !this.state.localExperience && !this.state.meetLocals && !this.state.northernPeninsular && !this.state.notthEasternCoast && !this.state.westernCoast && !this.state.southWesternCoast && !this.state.southernCoast && !this.state.easternCoast && !this.state.softAdventure && !this.state.activeHoliday && !this.state.relaxingHoliday && !this.state.leisureDayInBetween && !this.state.midlyActiveHoliday && !this.state.seeAsMuchAsPossible && !this.state.relaxingBeachTime) {
         axios.get('http://localhost/sunwayholidays/test')
           .then(res => {
             this.setState({
@@ -67,12 +83,24 @@ class App extends Component {
         if (this.state.romanticHoliday || this.state.couplesFriends || this.state.travellingSolo || this.state.familiesTeenages || this.state.familiesKids || this.state.seniors) {
           var suitable = "suitable-for";
         }
-        if(this.state.culture || this.state.unescoHeritage || this.state.interactWithAnimals || this.state.natureAndLandscapes || this.state.teaTrails || this.state.relaxingBeachTime || this.state.colomboCity || this.state.ecoLovers) {
+        if (this.state.culture || this.state.unescoHeritage || this.state.interactWithAnimals || this.state.wildlifeWatching || this.state.natureAndLandscapes || this.state.teaTrails || this.state.relaxingBeachTime || this.state.colomboCity || this.state.ecoLovers) {
+          var interests = "interests";
+        }
+        if (this.state.localExperience || this.state.meetLocals) {
           var experience = "experience";
+        }
+        if (this.state.northernPeninsular || this.state.notthEasternCoast || this.state.westernCoast || this.state.southWesternCoast || this.state.southernCoast || this.state.easternCoast) {
+          var beachStayIn = "beachStayIn";
+        }
+        if (this.state.softAdventure || this.state.activeHoliday || this.state.relaxingHoliday || this.state.leisureDayInBetween || this.state.midlyActiveHoliday || this.state.seeAsMuchAsPossible || this.state.relaxingBeachTime) {
+          var activityLevel = "activityLevel";
         }
         axios.post( 'http://localhost/sunwayholidays/testPost', 
           { suitableFor: suitable ? suitable : '',
+            interests: interests ? interests : '',
             experience: experience ? experience : '',
+            beachStayIn: beachStayIn ? beachStayIn : '',
+            activityLevel: activityLevel ? activityLevel : '',
             romanticHoliday: this.state.romanticHoliday,
             couplesFriends: this.state.couplesFriends,
             travellingSolo: this.state.travellingSolo,
@@ -88,6 +116,21 @@ class App extends Component {
             relaxingBeachTime: this.state.relaxingBeachTime,
             colomboCity: this.state.colomboCity,
             ecoLovers: this.state.ecoLovers,
+            localExperience: this.state.localExperience,
+            meetLocals: this.state.meetLocals,
+            northernPeninsular: this.state.northernPeninsular,
+            notthEasternCoast: this.state.notthEasternCoast,
+            westernCoast: this.state.westernCoast,
+            southWesternCoast: this.state.southWesternCoast,
+            southernCoast: this.state.southernCoast,
+            easternCoast: this.state.easternCoast,
+            softAdventure: this.state.softAdventure,
+            activeHoliday: this.state.activeHoliday,
+            relaxingHoliday: this.state.relaxingHoliday,
+            leisureDayInBetween: this.state.leisureDayInBetween,
+            midlyActiveHoliday: this.state.midlyActiveHoliday,
+            seeAsMuchAsPossible: this.state.seeAsMuchAsPossible,
+            relaxingBeachTime: this.state.relaxingBeachTime
             
           },{
              headers: {
