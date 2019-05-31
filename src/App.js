@@ -12,7 +12,20 @@ class App extends Component {
     isLoading: true,
     tours: [],
     romanticHoliday: '',
-    couplesFriends: ''
+    couplesFriends: '',
+    travellingSolo: '',
+    familiesTeenages: '',
+    familiesKids: '',
+    seniors: '',
+    culture: '',
+    unescoHeritage: '',
+    interactWithAnimals: '',
+    wildlifeWatching: '',
+    natureAndLandscapes: '',
+    teaTrails: '',
+    relaxingBeachTime: '',
+    colomboCity: '',
+    ecoLovers:''
   }
 
   componentWillMount(){
@@ -39,7 +52,7 @@ class App extends Component {
       isLoading: true,
       [name]: value
     }, () => {
-      if (!this.state.romanticHoliday && !this.state.couplesFriends) {
+      if (!this.state.romanticHoliday && !this.state.couplesFriends && !this.state.travellingSolo && !this.state.familiesTeenages && !this.state.familiesKids && !this.state.seniors && !this.state.culture && !this.state.unescoHeritage && !this.state.interactWithAnimals && !this.state.natureAndLandscapes && !this.state.teaTrails && !this.state.relaxingBeachTime && !this.state.colomboCity && !this.state.ecoLovers) {
         axios.get('http://localhost/sunwayholidays/test')
           .then(res => {
             this.setState({
@@ -48,28 +61,46 @@ class App extends Component {
             })
           });
       } else {
-        // console.log(value);
+        //setting suitable-for category 
+        if (this.state.romanticHoliday || this.state.couplesFriends || this.state.travellingSolo || this.state.familiesTeenages || this.state.familiesKids || this.state.seniors) {
+          var suitable = "suitable-for";
+        }
+        if(this.state.culture || this.state.unescoHeritage || this.state.interactWithAnimals || this.state.natureAndLandscapes || this.state.teaTrails || this.state.relaxingBeachTime || this.state.colomboCity || this.state.ecoLovers) {
+          var experience = "experience";
+        }
         axios.post( 'http://localhost/sunwayholidays/testPost', 
-          {
+          { suitableFor: suitable ? suitable : '',
+            experience: experience ? experience : '',
             romanticHoliday: this.state.romanticHoliday,
-            couplesFriends: this.state.couplesFriends
+            couplesFriends: this.state.couplesFriends,
+            travellingSolo: this.state.travellingSolo,
+            familiesTeenages: this.state.familiesTeenages,
+            familiesKids: this.state.familiesKids,
+            seniors: this.state.seniors,
+            culture: this.state.culture,
+            unescoHeritage: this.state.unescoHeritage,
+            interactWithAnimals: this.state.interactWithAnimals,
+            wildlifeWatching: this.state.wildlifeWatching,
+            natureAndLandscapes: this.state.natureAndLandscapes,
+            teaTrails: this.state.teaTrails,
+            relaxingBeachTime: this.state.relaxingBeachTime,
+            colomboCity: this.state.colomboCity,
+            ecoLovers: this.state.ecoLovers,
+            
           },{
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              }
           }).then(res => {
+            // console.log(res);
             this.setState({
               tours: res.data,
               isLoading: false
             });
           }).catch(error => console.log(error));
-            
-          
       }
     });
   }
-
- 
 
   render(){
     return (
@@ -85,13 +116,11 @@ class App extends Component {
               </div>
               <div className="col-8">
               <h2>Results</h2>
-              
               { this.state.isLoading ? 
                 <div className="loading">
                   <img src={loading} className="loading-img" alt=""/>
                   <h3>Searching Your Tours...</h3>
                 </div> : <Tour tours={this.state.tours}/>}
-                  
               </div> 
             </div>    
         </div>
